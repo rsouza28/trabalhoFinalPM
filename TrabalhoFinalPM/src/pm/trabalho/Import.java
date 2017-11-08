@@ -33,6 +33,11 @@ public class Import {
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * 
+	 * Abre a conexão com arquivo e retorna o arquivo lido.
+	 */
 	public static Scanner importaPDF() {
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
@@ -50,24 +55,12 @@ public class Import {
 			pdfStripper.setEndPage(pdfStripper.getEndPage());
 			String parsedText = pdfStripper.getText(pdDoc);
 			
-			//PrintWriter saida = new PrintWriter(
-			//		new File("C:/users/rsouza/Documents/saida_teste.txt"));
-			
 			parsedText = parsedText.replaceAll(" ","");
 			pdDoc.close();
 			Scanner s = new Scanner(parsedText);
 			
 			return s;
 			
-			// String linha = "";
-			//while (s.hasNext()) {
-			//	linha = s.next().toLowerCase();
-				
-			//	saida.print(linha);
-			//	saida.print("\r\n");
-			//}
-			//	saida.close();
-			//	s.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -101,6 +94,10 @@ public class Import {
 		}
 	}
 	
+	/**
+	 * 
+	 * Lê o arquivo importado e procura onde está a matrícula Ao encontrar, retorna.
+	 */
 	
 	public static String retornaMatricula() {
 		String matricula;
@@ -121,12 +118,20 @@ public class Import {
 		return "Matricula nao encontrada";
 	}
 	
+	/**
+	 * Retorna o ano de ingresso, usando a matricula como parâmetro
+	 */
 	public static int retornaAnoIngresso(String matricula) {
 		int ano;
 		ano = Integer.parseInt(matricula.substring(0,4));
 		
 		return ano;
 	}
+	/**
+	 * Retorna o semestre de ingresso, usando a matricula como parâmetro
+	 * @param matricula
+	 * @return
+	 */
 	
 	public static int retornaSemestreIngresso(String matricula) {
 		int semestre;
@@ -135,6 +140,13 @@ public class Import {
 		return semestre;
 	}
 	
+	/**
+	 * Calcula o prazo máximo para a integelização do aluno.
+	 * Se entrou em 2013 ou antes, o prazo é de 14 meses.
+	 * Se entrou a parti de 2014 o prazo é de 12 meses.
+	 * @param ano
+	 * @return
+	 */
 	public static int retornaPrazoMaximoIntegralizacao(int ano) {
 		int prazo;
 		if (ano <= 2013)
@@ -145,6 +157,11 @@ public class Import {
 		return prazo;
 	}
 	
+	/**
+	 * Varre o arquivo pdf importado procurando pelos códigos das disciplinas e a situação do aluno na mesma
+	 * Retorna um hash com todo o histórico do aluno
+	 * @return
+	 */
 	public Map<Integer, String[]> retornaHistoricoAluno() {
 		Scanner s = importaPDF();
 		s.useDelimiter("\r\n");
@@ -198,6 +215,11 @@ public class Import {
 		
 	}
 	
+	/**
+	 * Lê o arquivo PDF importado e retorna o CR em cada período.
+	 * @return
+	 */
+	
 	public static Map<Integer, Double> retornaCrPeriodos() {
 		Scanner s = importaPDF();
 		s.useDelimiter("\r\n");
@@ -225,6 +247,10 @@ public class Import {
 		
 	}
 	
+	/**
+	 * Lê o arquivo importado e retorna o período atual do aluno
+	 * @return
+	 */
 	public static int retornaPeriodoAtual() {
 		Scanner s = importaPDF();
 		s.useDelimiter("\r\n");
@@ -245,6 +271,10 @@ public class Import {
 		return 0; 
 	}
 	
+	/**
+	 * Lê o arquivo importado e retorna o CR geral do aluno
+	 * @return
+	 */
 	public static double retornaCrGeral() {
 		
 		Scanner s = importaPDF();

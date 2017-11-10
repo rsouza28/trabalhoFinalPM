@@ -43,7 +43,7 @@ public class Import {
 		PDDocument pdDoc = null;
 		COSDocument cosDoc = null;
 		File arquivo = new File(
-				"C:/users/rsouza/Documents/historico.pdf");
+				"C:/Users/rsouza/git/trabalhoFinalPM/TrabalhoFinalPM/src/files_import/historico.pdf");
 	
 		try {
 			PDFParser parser = new PDFParser(new FileInputStream(arquivo));
@@ -213,6 +213,37 @@ public class Import {
 		
 		return hist;
 		
+	}
+	
+	public Map<String, String> ultimaSituacaoDisciplinas(){
+		
+		Map<String, String> ultimaSituacao = new HashMap<String, String>();
+		
+		Map<Integer, String[]> hist = retornaHistoricoAluno();
+		
+		for(Map.Entry<Integer, String[]> entry : hist.entrySet()) {
+			String[] valor = entry.getValue();
+			if(!valor[1].equals("CURSANDO")) {
+				if (ultimaSituacao.containsKey(valor[0]))
+					ultimaSituacao.replace(valor[0], valor[1]);
+				else 
+					ultimaSituacao.put(valor[0], valor[1]);
+			}
+			
+		}
+		
+		
+		return ultimaSituacao;
+	}
+	
+	public String situacaoDiscplina(String disciplina) {
+		if(disciplina.equals("TIN0010"))
+			disciplina = "TIN0110";
+		
+		if (ultimaSituacaoDisciplinas().containsKey(disciplina))
+			return ultimaSituacaoDisciplinas().get(disciplina);
+		
+		return "NAO REALIZADO";
 	}
 	
 	/**

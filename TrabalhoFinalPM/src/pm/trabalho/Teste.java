@@ -31,13 +31,19 @@ public class Teste {
 		
 		Regras regras = new Regras();
 		
-		System.out.print(Regras.matricula+"\r\n");
+		System.out.print("MATRICULA: "+Regras.matricula+"\r\n");
 		System.out.println("CR maior que 7: " + regras.verificaCrMaior());
 		System.out.println("Cursando pelo menos 3 disciplinas: " + regras.verificaDisciplinasCursando());
 		System.out.println("integralização está ok: " + regras.verificaCrIntegralizacao());
 		System.out.println("Deveria ser jubilado: " + regras.verificaAlunoJubilamento());
 		System.out.println("Condição de se formar no prazo regular: " + regras.verificaCondicaoPrazoRegular());
 		System.out.println("Aluno deve apresentar plano de integralizacao: "+regras.verificaPlanoIntegralizacao());
+		
+		
+		//Import imp = new Import();
+		
+		//System.out.println(imp.situacaoDiscplina("TIN0010"));
+		//System.out.println(imp.retornaHistoricoAluno());
 
 	}
 

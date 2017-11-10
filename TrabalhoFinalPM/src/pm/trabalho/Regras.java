@@ -34,7 +34,7 @@ public class Regras {
 
 	}
 
-	/**
+	/*
 	 * Define a partir de que periodo o aluno precisa entregar o plano de integralizacão 
 	 * Para 14 periodos, o aluno deve entregar o plano no periodo 12
 	 * Para 12 periodos, o aluno deve entregar o plano no periodo 8
@@ -48,7 +48,7 @@ public class Regras {
 		}
 	}
 
-	/** 
+	/*
 	* Calcula quantas disciplinas o aluno já venceu 
 	* Para isso, verifica se a disciplina possui o a situação "VENCIDO" e retorna o total
 	*/  
@@ -69,7 +69,7 @@ public class Regras {
 	}
 	
 	
-	/** 
+	/*
 	 * Analisa com qual cor a disciplina será pintada
 	 * verde para vencido, vermelho para reprovado, amarela para trancado e branco (ou nada) para os demais.
 	*/
@@ -96,9 +96,9 @@ public class Regras {
 	
 	
 
-	/** REGRAS DE VERIFICAÇÃO **/
+	/* REGRAS DE VERIFICAÇÃO */
 	
-	/** Verifica se o aluno deve ser jubilado. 
+	/* Verifica se o aluno deve ser jubilado. 
 	* Se o aluno tiver CR menor que 4.0 e se possuir quatro ou mais reprovações em uma mesma disciplina, retorna true.
 	*/
 	public boolean verificaAlunoJubilamento() throws IOException {
@@ -129,20 +129,16 @@ public class Regras {
 		for (Map.Entry<String, Integer> entry : agg.entrySet()) {
 			int totalReprovacoes = entry.getValue();
 			
-			if (totalReprovacoes >= 4) {
-				//System.out.println("Reprovado na materia " + entry.getKey() +" um total de "+entry.getValue()+" vezes.");
+			if (totalReprovacoes >= 4) {	
 				if (cr < 4.0)
-					//System.out.println("E possui um cr de "+cr+". Deveria ser jubilado");
 					return true;
-				//else
-					//System.out.println("Mas possui um cr de "+cr+". Não deveria ser jubilado");
 			}	
 		}
 		
 		return false;
 	}
 
-	/**
+	/*
 	* Verifica se o aluno deve apresentar plano de integralização
 	* Se o periodo atual que o aluno estiver matriculado for inferior ao período de integralização, retorna falso.
 	*/
@@ -153,7 +149,7 @@ public class Regras {
 		return true;
 	}
 	
-	/** 
+	/*
 	* Verifica se o aluno tem CR maior que 5.0 nos períodos de integralização
 	* Se em período de integralização possuir CR inferior a 5.0, retorna falso.
 	*/
@@ -171,7 +167,7 @@ public class Regras {
 		return true;
 	}
 
-	/**
+	/*
 	* Verifica se o aluno está cursando pelo menos 3 disciplinas
 	* Se total de disciplinas do curso subtraido do total de disciplinas vencidas for menor que tres, retorna true.
 	* Se estiver com a situação "CURSANDO" em pelo menos 3 disciplinas, retorna true.
@@ -200,7 +196,7 @@ public class Regras {
 		return false;
 	}
 	
-	/** 
+	/*
 	 * Verifica se o aluno tem condições de se formar dentro do prazo regular
 	 * Se já estiver no nono período em diante, retorna falso.
 	 * Se a razão de disciplinas restantes pela quantidade de periodos restantes for maior que a razão de total de disciplinas pela quantidade de periodos regular
@@ -221,7 +217,7 @@ public class Regras {
 		return true;
 	}
 
-	/**
+	/*
 	* Verifica se o CR do aluno é maior que 7.
 	* se for maior, retorna true
 	*/

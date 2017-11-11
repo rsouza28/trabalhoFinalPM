@@ -2,6 +2,8 @@
  * 
  */
 package pm.trabalho;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +12,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -25,7 +29,7 @@ import org.apache.pdfbox.util.PDFTextStripper;
  *
  */
 public class Import {
-
+	public static String caminhoArquivo = importaArquivoPDF();
 	/**
 	 * @param args
 	 */
@@ -34,7 +38,27 @@ public class Import {
 
 	}
 	
-	/**
+	
+	public static String importaArquivoPDF() {
+		
+		JFileChooser arquivo = new JFileChooser();
+		
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivo pdf", "pdf");
+		arquivo.setDialogTitle("Selecione o historico de um aluno");
+		arquivo.setFileFilter(filtro);
+        int returnVal = arquivo.showOpenDialog(null);
+        
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        	return arquivo.getSelectedFile().getAbsolutePath();
+        }
+        else 
+        	System.exit(0);
+        
+        return null;
+        
+	}
+	
+	/*
 	 * 
 	 * Abre a conexão com arquivo e retorna o arquivo lido.
 	 */
@@ -42,10 +66,12 @@ public class Import {
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
 		COSDocument cosDoc = null;
-		File arquivo = new File(
-				"C:/Users/rsouza/git/trabalhoFinalPM/TrabalhoFinalPM/src/files_import/historico.pdf");
-	
+		
+		
 		try {
+			File arquivo = new File(
+					caminhoArquivo);
+			
 			PDFParser parser = new PDFParser(new FileInputStream(arquivo));
 			parser.parse();
 			cosDoc = parser.getDocument();

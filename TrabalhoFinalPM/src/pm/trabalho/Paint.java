@@ -12,6 +12,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 
 /**
@@ -19,16 +22,70 @@ import java.util.regex.Pattern;
  *
  */
 public class Paint {
+	
+	public static String caminhoArquivo = escolheArquivoHTML();
 
 	/**
 	 * @param args
 	 * @throws IOException 
 	 */
 	
-	public static Scanner importaGrade() throws IOException {
+	/*
+	 * Escolhe o arquivo HTML que será usado como base para a grade curricular
+	 */
+	
+	public static String escolheArquivoHTML() {
+		
+		JFileChooser arquivo = new JFileChooser();
+		
+		FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivo html", "html");
+		arquivo.setDialogTitle("Selecione a grade curricular");
+		arquivo.setFileFilter(filtro);
+        int returnVal = arquivo.showOpenDialog(null);
+        
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        	return arquivo.getSelectedFile().getAbsolutePath();
+        }
+        else
+        	System.exit(0);
+		
+		
+		return null;
+	}
+	
+	/*
+	 * Define onde o usuário irá salvar o arquivo html já editado
+	 */
+	public static String destinoArquivoHTML(){
+		//String matricula = Import.retornaMatricula(); 
+		
+		JFileChooser destino = new JFileChooser();
+		int returnVal = destino.showSaveDialog(null);
+		
+		destino.setDialogTitle("Salva como...");
+		
+		
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+			return destino.getSelectedFile().getAbsolutePath();
+		}
+		else
+			System.exit(0);
+		
+		
+		return null;
+	}
+	
+	/*
+	 * Realiza o import do arquivo html selecionado pelo usuário 
+	 */
+	
+	public Scanner importaGrade() throws IOException {
+		
+		if(caminhoArquivo.equals("NoFile"))
+			System.exit(0);
 		
 		try {
-			FileInputStream fis = new FileInputStream("C:/Users/rsouza/git/trabalhoFinalPM/TrabalhoFinalPM/src/files_import/grade_curricular.html");
+			FileInputStream fis = new FileInputStream(caminhoArquivo);
 			
 			Scanner s = new Scanner(fis);
 			
@@ -42,14 +99,22 @@ public class Paint {
 		
 	}
 	
-	public static void exportaGradeColorida() {
+	/*
+	 * Exporta o arquivo html no lugar selecionado pelo usuário, com a grade curricular editada de acordo com o histórico do aluno 
+	 */
+	public void exportaGradeColorida() {
 		
 		try {
 			Import imp = new Import();
 			
-			String matricula = Import.retornaMatricula(); 
+			
+			String destino = destinoArquivoHTML();
+			
+			
+			destino = destino + ".html";
+			
 			PrintWriter saida = new PrintWriter(
-					new File("C:/Users/rsouza/git/trabalhoFinalPM/TrabalhoFinalPM/src/files_export/grade_"+matricula+".html"));
+					new File(destino));
 			
 			Scanner s = importaGrade();
 			String linha = "";
@@ -79,33 +144,29 @@ public class Paint {
 							linha = "	ctx.fillStyle = 'rgb(0, 255, 0)';" + "// ------>" + situacao;
 						else if (situacao.equals("REPROVADO"))
 							linha = "	ctx.fillStyle = 'rgb(255, 0, 0)';";
-						//else 
-							//linha = "	ctx.fillStyle = 'rgb(0, 0, 0)';";
+									
 						situacao = "";
 						trocaCor = false;
 					}
 				}
 				saida.print(linha+"\r\n");	
-				System.out.println(linha);
 				
 			}
 			saida.close();
 			s.close();
 			
+			System.out.println("Exportado com sucesso em: "+destino);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		
 	}
-	
-	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			
-		 exportaGradeColorida();
-		
-				
 
 	}
 	

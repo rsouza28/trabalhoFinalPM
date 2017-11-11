@@ -67,34 +67,7 @@ public class Regras {
 		
 		return total;
 	}
-	
-	
-	/*
-	 * Analisa com qual cor a disciplina será pintada
-	 * verde para vencido, vermelho para reprovado, amarela para trancado e branco (ou nada) para os demais.
-	*/
-	public static void analisaDisciplina() {
-		Map<Integer, String[]> hist = imp.retornaHistoricoAluno();
-		String[] disciplina;
-		String cor;
-		System.out.println("Disciplina -> Situação");
-		for(Map.Entry<Integer, String[]> entry : hist.entrySet()) {
-			disciplina = entry.getValue();
-			
-			if(disciplina[1].equals("VENCIDO"))
-				cor = "VERDE";
-			else if(disciplina[1].equals("REPROVADO"))
-				cor = "VERMELHO";
-			else if(disciplina[1].equals("TRANCADO"))
-				cor = "AMARELO";
-			else
-				cor = "BRANCO";		
-				
-			System.out.println(disciplina[0] + " -> " + cor);
-		}
-	}
-	
-	
+		
 
 	/* REGRAS DE VERIFICAÇÃO */
 	

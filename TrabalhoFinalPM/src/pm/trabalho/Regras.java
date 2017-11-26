@@ -13,25 +13,48 @@ import java.util.Map;
  *
  */
 public class Regras {
-	
-	static Import imp = new Import();
-	
-	public static String matricula = Import.retornaMatricula();
-	private static int prazo = Import.retornaPrazoMaximoIntegralizacao(Import.retornaAnoIngresso(matricula));
-	private static int periodoIntegralizacao = retornaPeriodoIntegralizacao(prazo);
-	private static int periodoAtual = Import.retornaPeriodoAtual();
-	private static double cr = Import.retornaCrGeral();
+
+
+	static Import imp;
+	public String matricula;
+	public static int prazo;
+	public static int periodoIntegralizacao;
+	public static int periodoAtual;
+	public double cr;
 	public static double notaMinimaIntegralizacao = 5.0;
 	public static int totalDisciplinasCurso = 51;
 	public static int qtdPeriodosRegular = 8;
 
+	/*
+	 * Construtor de que passa o histórico como parametro na declaração do método
+	 */
+	public Regras(String historico) {
+		imp = new Import(historico);
+		matricula = imp.retornaMatricula();
+		prazo = imp.retornaPrazoMaximoIntegralizacao(imp.retornaAnoIngresso(matricula));
+		periodoIntegralizacao = retornaPeriodoIntegralizacao(prazo);
+		periodoAtual = imp.retornaPeriodoAtual();
+		cr = imp.retornaCrGeral();
+	}
+	
+	/*
+	 * Construtor que passa o histórico escolhendo o arquivo através de um JFileChooser
+	 */
+	public Regras() {
+		imp = new Import();
+		matricula = imp.retornaMatricula();
+		prazo = imp.retornaPrazoMaximoIntegralizacao(imp.retornaAnoIngresso(matricula));
+		periodoIntegralizacao = retornaPeriodoIntegralizacao(prazo);
+		periodoAtual = imp.retornaPeriodoAtual();
+		cr = imp.retornaCrGeral();
+	}
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	/*
@@ -39,10 +62,10 @@ public class Regras {
 	 * Para 14 periodos, o aluno deve entregar o plano no periodo 12
 	 * Para 12 periodos, o aluno deve entregar o plano no periodo 8
 	 */
-	public static int retornaPeriodoIntegralizacao(int prazo) {
+	public int retornaPeriodoIntegralizacao(int prazo) {
 				
 		switch (prazo){
-		case 12: return 8;
+		case 12: return 7;
 		case 14: return 12;
 		default: return 0;
 		}
@@ -53,7 +76,7 @@ public class Regras {
 	* Para isso, verifica se a disciplina possui o a situação "VENCIDO" e retorna o total
 	*/  
 
-	public static int calculaDisciplinasVencidas() {
+	public int calculaDisciplinasVencidas() {
 		int total = 0;
 
 		Map<Integer, String[]> hist = imp.retornaHistoricoAluno();
@@ -67,7 +90,6 @@ public class Regras {
 		
 		return total;
 	}
-		
 
 	/* REGRAS DE VERIFICAÇÃO */
 	
@@ -84,13 +106,15 @@ public class Regras {
 		// essas informações são jogadas em um hashmap
 		for(int i=1; i <= hist.size();i++) {
 			valor = hist.get(i);
-			
+			// Se já existir essa Key no MAP, soma mais um na frequencia de reprovação. 
 			if(agg.containsKey(valor[0]) == true){
 				if (valor[1].equals("REPROVADO")) {
 					int freq = agg.get(valor[0]) + 1;
 					agg.put(valor[0], freq );
 				}
 			}
+			
+			// Se não existir a Key no MAP, insere com 1 reprovação de frequencia.
 			else {
 				if (valor[1].equals("REPROVADO"))
 					agg.put(valor[0], 1);
@@ -127,8 +151,11 @@ public class Regras {
 	* Se em período de integralização possuir CR inferior a 5.0, retorna falso.
 	*/
 	public boolean verificaCrIntegralizacao() throws IOException{
+		
+		if (periodoAtual < periodoIntegralizacao)
+			return false;
 				
-		Map<Integer, Double> notas = Import.retornaCrPeriodos();
+		Map<Integer, Double> notas = imp.retornaCrPeriodos();
 		
 		for(Map.Entry<Integer, Double> crPer : notas.entrySet()) {
 			if(crPer.getKey() != periodoAtual && crPer.getKey() >= periodoIntegralizacao && crPer.getValue() < notaMinimaIntegralizacao) 
@@ -194,8 +221,8 @@ public class Regras {
 	* Verifica se o CR do aluno é maior que 7.
 	* se for maior, retorna true
 	*/
-	public boolean verificaCrMaior() throws IOException {
-		double cr = Import.retornaCrGeral(); 
+	public boolean verificaCrMaior(double cr) throws IOException {
+	
 		if (cr >= 7.0)
 			return true;
 	

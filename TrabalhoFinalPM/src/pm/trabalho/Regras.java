@@ -26,7 +26,7 @@ public class Regras {
 	public static int qtdPeriodosRegular = 8;
 
 	/*
-	 * Construtor de que passa o histÛrico como parametro na declaraÁ„o do mÈtodo
+	 * Construtor de que passa o hist√≥rico como parametro na declara√ß√£o do m√©todo
 	 */
 	public Regras(String historico) {
 		imp = new Import(historico);
@@ -38,7 +38,7 @@ public class Regras {
 	}
 	
 	/*
-	 * Construtor que passa o histÛrico escolhendo o arquivo atravÈs de um JFileChooser
+	 * Construtor que passa o hist√≥rico escolhendo o arquivo atrav√©s de um JFileChooser
 	 */
 	public Regras() {
 		imp = new Import();
@@ -58,7 +58,7 @@ public class Regras {
 	}
 
 	/*
-	 * Define a partir de que periodo o aluno precisa entregar o plano de integralizac„o 
+	 * Define a partir de que periodo o aluno precisa entregar o plano de integralizac√£o 
 	 * Para 14 periodos, o aluno deve entregar o plano no periodo 12
 	 * Para 12 periodos, o aluno deve entregar o plano no periodo 8
 	 */
@@ -72,8 +72,8 @@ public class Regras {
 	}
 
 	/*
-	* Calcula quantas disciplinas o aluno j· venceu 
-	* Para isso, verifica se a disciplina possui o a situaÁ„o "VENCIDO" e retorna o total
+	* Calcula quantas disciplinas o aluno j√° venceu 
+	* Para isso, verifica se a disciplina possui o a situa√ß√£o "VENCIDO" e retorna o total
 	*/  
 
 	public int calculaDisciplinasVencidas() {
@@ -91,10 +91,10 @@ public class Regras {
 		return total;
 	}
 
-	/* REGRAS DE VERIFICA«√O */
+	/* REGRAS DE VERIFICA√á√ÉO */
 	
 	/* Verifica se o aluno deve ser jubilado. 
-	* Se o aluno tiver CR menor que 4.0 e se possuir quatro ou mais reprovaÁıes em uma mesma disciplina, retorna true.
+	* Se o aluno tiver CR menor que 4.0 e se possuir quatro ou mais reprova√ß√µes em uma mesma disciplina, retorna true.
 	*/
 	public boolean verificaAlunoJubilamento() throws IOException {
 		
@@ -102,11 +102,11 @@ public class Regras {
 		
 		String[] valor;
 		Map<String, Integer> agg = new HashMap<String, Integer>();
-		// loop que agrupa as disciplinas que o aluno j· foi reprovado e a frequÍncia com que aconteceu
-		// essas informaÁıes s„o jogadas em um hashmap
+		// loop que agrupa as disciplinas que o aluno j√° foi reprovado e a frequ√™ncia com que aconteceu
+		// essas informa√ß√µes s√£o jogadas em um hashmap
 		for(int i=1; i <= hist.size();i++) {
 			valor = hist.get(i);
-			// Se j· existir essa Key no MAP, soma mais um na frequencia de reprovaÁ„o. 
+			// Se j√° existir essa Key no MAP, soma mais um na frequencia de reprova√ß√£o. 
 			if(agg.containsKey(valor[0]) == true){
 				if (valor[1].equals("REPROVADO")) {
 					int freq = agg.get(valor[0]) + 1;
@@ -114,7 +114,7 @@ public class Regras {
 				}
 			}
 			
-			// Se n„o existir a Key no MAP, insere com 1 reprovaÁ„o de frequencia.
+			// Se n√£o existir a Key no MAP, insere com 1 reprova√ß√£o de frequencia.
 			else {
 				if (valor[1].equals("REPROVADO"))
 					agg.put(valor[0], 1);
@@ -122,7 +122,7 @@ public class Regras {
 		}
 		
 		// Loop para verificar se o aluno deve ser jubilado baseado nas disciplinas reprovadas
-		// levando em conta a frequÍncia de reprovaÁ„o (4 vezes ou mais) e o cr (inferior a 4)
+		// levando em conta a frequ√™ncia de reprova√ß√£o (4 vezes ou mais) e o cr (inferior a 4)
 		for (Map.Entry<String, Integer> entry : agg.entrySet()) {
 			int totalReprovacoes = entry.getValue();
 			
@@ -136,8 +136,8 @@ public class Regras {
 	}
 
 	/*
-	* Verifica se o aluno deve apresentar plano de integralizaÁ„o
-	* Se o periodo atual que o aluno estiver matriculado for inferior ao perÌodo de integralizaÁ„o, retorna falso.
+	* Verifica se o aluno deve apresentar plano de integraliza√ß√£o
+	* Se o periodo atual que o aluno estiver matriculado for inferior ao per√≠odo de integraliza√ß√£o, retorna falso.
 	*/
 	public boolean verificaPlanoIntegralizacao() {
 		if (periodoAtual < periodoIntegralizacao)
@@ -147,8 +147,8 @@ public class Regras {
 	}
 	
 	/*
-	* Verifica se o aluno tem CR maior que 5.0 nos perÌodos de integralizaÁ„o
-	* Se em perÌodo de integralizaÁ„o possuir CR inferior a 5.0, retorna falso.
+	* Verifica se o aluno tem CR maior que 5.0 nos per√≠odos de integraliza√ß√£o
+	* Se em per√≠odo de integraliza√ß√£o possuir CR inferior a 5.0, retorna falso.
 	*/
 	public boolean verificaCrIntegralizacao() throws IOException{
 		
@@ -168,9 +168,9 @@ public class Regras {
 	}
 
 	/*
-	* Verifica se o aluno est· cursando pelo menos 3 disciplinas
+	* Verifica se o aluno est√° cursando pelo menos 3 disciplinas
 	* Se total de disciplinas do curso subtraido do total de disciplinas vencidas for menor que tres, retorna true.
-	* Se estiver com a situaÁ„o "CURSANDO" em pelo menos 3 disciplinas, retorna true.
+	* Se estiver com a situa√ß√£o "CURSANDO" em pelo menos 3 disciplinas, retorna true.
 	*/
 	public boolean verificaDisciplinasCursando() throws IOException{
 		
@@ -183,7 +183,7 @@ public class Regras {
 		
 		Map<Integer, String[]> hist = imp.retornaHistoricoAluno();
 		
-		// loop que gera um contador de quantas disciplinas o aluno est· cursando
+		// loop que gera um contador de quantas disciplinas o aluno est√° cursando
 		for(int i=1; i<=hist.size();i++) {
 			valor = hist.get(i);
 			if (valor[1].equals("CURSANDO"))
@@ -197,10 +197,10 @@ public class Regras {
 	}
 	
 	/*
-	 * Verifica se o aluno tem condiÁıes de se formar dentro do prazo regular
-	 * Se j· estiver no nono perÌodo em diante, retorna falso.
-	 * Se a raz„o de disciplinas restantes pela quantidade de periodos restantes for maior que a raz„o de total de disciplinas pela quantidade de periodos regular
-	 * Ent„o retorna falso.
+	 * Verifica se o aluno tem condi√ß√µes de se formar dentro do prazo regular
+	 * Se j√° estiver no nono per√≠odo em diante, retorna falso.
+	 * Se a raz√£o de disciplinas restantes pela quantidade de periodos restantes for maior que a raz√£o de total de disciplinas pela quantidade de periodos regular
+	 * Ent√£o retorna falso.
 	*/
 	public boolean verificaCondicaoPrazoRegular() throws IOException{
 		if (periodoAtual >= 9)
@@ -218,7 +218,7 @@ public class Regras {
 	}
 
 	/*
-	* Verifica se o CR do aluno È maior que 7.
+	* Verifica se o CR do aluno √© maior que 7.
 	* se for maior, retorna true
 	*/
 	public boolean verificaCrMaior(double cr) throws IOException {
@@ -229,14 +229,17 @@ public class Regras {
 		return false;
 	}
 	
+	/*
+	* Verifica todas as regras desenvolvidas e retorna uma string com o resultado
+	*/
 	public String verificaTodasAsRegras(Regras aluno) throws IOException {
 		String linha;
 		linha = "MATRICULA: "+ aluno.matricula+"<br>";
 		linha = linha + "CR maior que 7: " + aluno.verificaCrMaior(aluno.cr)+"<br>";
 		linha = linha +"Cursando pelo menos 3 disciplinas: " + aluno.verificaDisciplinasCursando()+"<br>";
-		linha = linha +"integralizaÁ„o est· ok: " + aluno.verificaCrIntegralizacao()+"<br>";
+		linha = linha +"integraliza√ß√£o est√° ok: " + aluno.verificaCrIntegralizacao()+"<br>";
 		linha = linha + "Deveria ser jubilado: " + aluno.verificaAlunoJubilamento()+"<br>";
-		linha = linha + "CondiÁ„o de se formar no prazo regular: " + aluno.verificaCondicaoPrazoRegular()+"<br>";
+		linha = linha + "Condi√ß√£o de se formar no prazo regular: " + aluno.verificaCondicaoPrazoRegular()+"<br>";
 		linha = linha + "Aluno deve apresentar plano de integralizacao: "+aluno.verificaPlanoIntegralizacao()+"<br>";
 		
 		return linha;

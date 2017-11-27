@@ -41,7 +41,7 @@ public class GradeCurricular {
 
 		PaintSVG paintRodrigo = new PaintSVG();
 		paintRodrigo.exportaGradeColorida();
-		paintRodrigo.criaArquivoHTML(paintRodrigo.destinoArquivo, michel.verificaTodasAsRegras(rodrigo));
+		paintRodrigo.criaArquivoHTML(paintRodrigo.destinoArquivo, rodrigo.verificaTodasAsRegras(rodrigo));
 		
 
 	}

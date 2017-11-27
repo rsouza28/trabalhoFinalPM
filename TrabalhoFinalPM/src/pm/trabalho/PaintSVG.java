@@ -66,7 +66,7 @@ public class PaintSVG {
 	}
 	
 	/*
-	 * Define onde o usu·rio ir· salvar o arquivo html j· editado
+	 * Define onde o usu√°rio ir√° salvar o arquivo html j√° editado
 	 */
 	public String destinoArquivoSVG(){
 		//String matricula = Import.retornaMatricula(); 
@@ -90,7 +90,7 @@ public class PaintSVG {
 	
 	
 	/*
-	 * Remove a acentuaÁ„o para remover problemas com exportaÁ„o.
+	 * Remove a acentua√ß√£o para remover problemas com exporta√ß√£o.
 	 */
 	public String removerAcentos(String str) {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
@@ -99,7 +99,7 @@ public class PaintSVG {
     }
 	
 	/*
-	 * Realiza o import do arquivo svg selecionado pelo usu·rio 
+	 * Realiza o import do arquivo svg selecionado pelo usu√°rio 
 	 */
 	public Scanner importaGrade() throws IOException {
 		
@@ -120,7 +120,7 @@ public class PaintSVG {
 	}
 	
 	/*
-	 * Exporta o arquivo svg no lugar selecionado pelo usu·rio, com a grade curricular editada de acordo com o histÛrico do aluno 
+	 * Exporta o arquivo svg no lugar selecionado pelo usu√°rio, com a grade curricular editada de acordo com o hist√≥rico do aluno 
 	 */
 	public void exportaGradeColorida() {
 		
@@ -221,7 +221,7 @@ public class PaintSVG {
 	}
 	
 	/*
-	 * Indica se È pra alterar a cor da disciplina e seta o valor para cor, de acordo com a situaÁ„o do aluno na disciplina. 
+	 * Indica se √© pra alterar a cor da disciplina e seta o valor para cor, de acordo com a situa√ß√£o do aluno na disciplina. 
 	 */
 	public boolean alteraCor(String situacao) {
 		if(situacao.equals("VENCIDO")) {
@@ -238,6 +238,9 @@ public class PaintSVG {
 		return false;
 	}
 	
+	/*
+	* Cria o arquivo HTML que ser√° exportado
+	*/
 public void criaArquivoHTML(String destino, String linha) {		
 	
 		

@@ -3,7 +3,13 @@
  */
 package pm.trabalho;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -17,39 +23,30 @@ public class GradeCurricular {
 	 */
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+		
+		
+		
 
 		Regras michel= new Regras("C:/Users/rsouza/Documents/historico michel.pdf");
-		
+		michel.verificaTodasAsRegras(michel);
 
-		System.out.print("MATRICULA: "+ michel.matricula+"\r\n");
-		System.out.println("CR maior que 7: " + michel.verificaCrMaior(michel.cr));
-		System.out.println("Cursando pelo menos 3 disciplinas: " + michel.verificaDisciplinasCursando());
-		System.out.println("integralização está ok: " + michel.verificaCrIntegralizacao());
-		System.out.println("Deveria ser jubilado: " + michel.verificaAlunoJubilamento());
-		System.out.println("Condição de se formar no prazo regular: " + michel.verificaCondicaoPrazoRegular());
-		System.out.println("Aluno deve apresentar plano de integralizacao: "+michel.verificaPlanoIntegralizacao());
-		
 		PaintSVG paintMichel = new PaintSVG();
 		paintMichel.exportaGradeColorida();
-		
+		paintMichel.criaArquivoHTML(paintMichel.destinoArquivo, michel.verificaTodasAsRegras(michel));
+
 		
 		Regras rodrigo = new Regras();
 		
-		System.out.print("MATRICULA: "+rodrigo.matricula+"\r\n");
-		System.out.println("CR maior que 7: " + rodrigo.verificaCrMaior(rodrigo.cr));
-		System.out.println("Cursando pelo menos 3 disciplinas: " + rodrigo.verificaDisciplinasCursando());
-		System.out.println("integralização está ok: " + rodrigo.verificaCrIntegralizacao());
-		System.out.println("Deveria ser jubilado: " + rodrigo.verificaAlunoJubilamento());
-		System.out.println("Condição de se formar no prazo regular: " + rodrigo.verificaCondicaoPrazoRegular());
-		System.out.println("Aluno deve apresentar plano de integralizacao: "+rodrigo.verificaPlanoIntegralizacao());
-		
+		rodrigo.verificaTodasAsRegras(rodrigo);
+
 		PaintSVG paintRodrigo = new PaintSVG();
 		paintRodrigo.exportaGradeColorida();
-
-	
-		
+		paintRodrigo.criaArquivoHTML(paintRodrigo.destinoArquivo, michel.verificaTodasAsRegras(rodrigo));
 		
 
 	}
+	
+	
+	
 
 }

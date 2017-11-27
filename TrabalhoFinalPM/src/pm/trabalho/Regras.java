@@ -228,4 +228,19 @@ public class Regras {
 	
 		return false;
 	}
+	
+	public String verificaTodasAsRegras(Regras aluno) throws IOException {
+		String linha;
+		linha = "MATRICULA: "+ aluno.matricula+"<br>";
+		linha = linha + "CR maior que 7: " + aluno.verificaCrMaior(aluno.cr)+"<br>";
+		linha = linha +"Cursando pelo menos 3 disciplinas: " + aluno.verificaDisciplinasCursando()+"<br>";
+		linha = linha +"integralização está ok: " + aluno.verificaCrIntegralizacao()+"<br>";
+		linha = linha + "Deveria ser jubilado: " + aluno.verificaAlunoJubilamento()+"<br>";
+		linha = linha + "Condição de se formar no prazo regular: " + aluno.verificaCondicaoPrazoRegular()+"<br>";
+		linha = linha + "Aluno deve apresentar plano de integralizacao: "+aluno.verificaPlanoIntegralizacao()+"<br>";
+		
+		return linha;
+		
+		
+	}
 }

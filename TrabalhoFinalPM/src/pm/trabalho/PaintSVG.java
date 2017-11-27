@@ -27,6 +27,8 @@ public class PaintSVG {
 	static String velhaCor = "#ffffff";
 	static String novaCor;
 	public static String caminhoArquivo;
+	public String destinoArquivo;
+	public String nomeArquivo;
 
 
 	/** 
@@ -76,7 +78,8 @@ public class PaintSVG {
 		
 		
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			return destino.getSelectedFile().getAbsolutePath();
+			nomeArquivo = destino.getSelectedFile().getName();
+			return destinoArquivo = destino.getSelectedFile().getAbsolutePath();
 		}
 		else
 			System.exit(0);
@@ -214,6 +217,7 @@ public class PaintSVG {
 			e.printStackTrace();
 		}
 		
+		
 	}
 	
 	/*
@@ -232,6 +236,27 @@ public class PaintSVG {
 			novaCor = velhaCor;
 		
 		return false;
+	}
+	
+public void criaArquivoHTML(String destino, String linha) {		
+	
+		
+	
+		try {						
+			PrintWriter saida = new PrintWriter(
+					new File(destino+".html"));
+			
+			saida.print(linha);
+			saida.print("<img src='"+nomeArquivo+".svg'>");
+			saida.close();
+		
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 	
 	public static void main(String[] args) {
